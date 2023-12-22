@@ -2,6 +2,13 @@
 
 A new Flutter project.
 
+- local database: isar
+- provider: riverpod
+- httpclient: dio
+- architectural: mvvm
+- craches: firebase crashlytics
+- multi language: en, tr
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
