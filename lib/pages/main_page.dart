@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pppos/pages/categories/category_page.dart';
 import 'package:pppos/pages/customers/customer_page.dart';
+import 'package:pppos/pages/customers/list/customer_phone_list_view.dart';
+import 'package:pppos/pages/customers/list/customer_tablet_list.view.dart';
 import 'package:pppos/pages/homes/home_page.dart';
 import 'package:pppos/pages/orders/order_page.dart';
 import 'package:pppos/pages/products/product_page.dart';
@@ -15,16 +17,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-  List<Widget> pages = [
-    const HomePage(),
-    CustomerPage(),
-    const OrderPage(),
-    const CategoryPage(),
-    const ProductPage(),
-    const SettingsPage()
-  ];
+  // List<Widget> pages = [
+  //   HomePage(),
+  //   CustomerPage(
+  //     mobileView: const CustomerPhoneListView(),
+  //     tabletView: const CustomerTabletListView(),
+  //   ),
+  //   const OrderPage(),
+  //   const CategoryPage(),
+  //   const ProductPage(),
+  //   const SettingsPage()
+  // ];
 
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
   }
@@ -37,8 +42,9 @@ class _MainPageState extends State<MainPage> {
         title: Text(widget.title),
         elevation: 0,
       ),
-      body: pages[_selectedIndex],
-      bottomNavigationBar: _mainBottomNavigationBar(),
+      body: const Center(
+        child: Text("data"),
+      ),
     );
   }
 

@@ -1,21 +1,34 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:pppos/models/customer.dart';
-import 'package:pppos/repositories/customer_repository.dart';
+import 'package:pppos/core/enums/device_types.dart';
+
+import 'package:pppos/pages/homes/home__page_phone_view.dart';
+import 'package:pppos/pages/homes/home__page_tablet_view.dart';
+import 'package:pppos/core/utilitys/helper.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final HomePagePhoneView phoneView = const HomePagePhoneView();
+  final HomePageTabletView tabletView = const HomePageTabletView();
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Customer> customers = [];
-  CustomerRepository customerRepository = CustomerRepository();
-
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Home Page"));
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (Helper.getDeviceType(constraints) == EDeviceTypes.Phone) {
+          return widget.phoneView;
+        } else {
+          return widget.tabletView;
+        }
+      },
+    );
   }
 }
 

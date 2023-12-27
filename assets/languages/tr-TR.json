@@ -1,0 +1,8 @@
+{
+    "loginPage": {
+        "title": "Uygulamaya giriş yapın",
+        "emailText": "Kullanıcı Kodu veya Email adresi",
+        "passwordText": "Şifre",
+        "loginButton": "Giriş Yapın"
+    }
+}

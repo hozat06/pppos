@@ -1,18 +1,17 @@
 import 'package:isar/isar.dart';
 import 'package:pppos/core/managers/database_manager.dart';
 import 'package:pppos/core/managers/exception_manager.dart';
+import 'package:pppos/models/parameter_model.dart';
 import 'package:pppos/repositories/_base_repository.dart';
-import 'package:pppos/services/entities/customer.dart';
-import 'package:pppos/services/entities/customer_address.dart';
 
-class CustomerAddressRepository extends DatabaseManager
-    implements IBaseRepository<CustomerAddress> {
+class ParameterRepository extends DatabaseManager
+    implements IBaseRepository<ParameterModel> {
   @override
-  Future<bool> add(CustomerAddress model) async {
+  Future<bool> add(ParameterModel model) async {
     try {
       var db = await isarDb;
       await db.writeTxn(() async {
-        await db.customerAddress.put(model);
+        await db.parameterModels.put(model);
       });
 
       return true;
@@ -23,11 +22,11 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<bool> addAll(List<CustomerAddress> model) async {
+  Future<bool> addAll(List<ParameterModel> model) async {
     try {
       var db = await isarDb;
       await db.writeTxn(() async {
-        await db.customerAddress.putAll(model);
+        await db.parameterModels.putAll(model);
       });
 
       return true;
@@ -38,11 +37,11 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<bool> update(CustomerAddress model) async {
+  Future<bool> update(ParameterModel model) async {
     try {
       var db = await isarDb;
       await db.writeTxn(() async {
-        await db.customerAddress.put(model);
+        await db.parameterModels.put(model);
       });
 
       return true;
@@ -53,11 +52,11 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<bool> delete(CustomerAddress model) async {
+  Future<bool> delete(ParameterModel model) async {
     try {
       var db = await isarDb;
       await db.writeTxn(() async {
-        await db.customerAddress.delete(model.isarId ?? 0);
+        await db.parameterModels.delete(model.isarId ?? 0);
       });
 
       return true;
@@ -68,7 +67,7 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<bool> deleteAll(List<CustomerAddress> model) async {
+  Future<bool> deleteAll(List<ParameterModel> model) async {
     try {
       var db = await isarDb;
       await db.writeTxn(() async {
@@ -76,7 +75,7 @@ class CustomerAddressRepository extends DatabaseManager
           return x.isarId;
         }).toList();
 
-        await db.customerAddress.deleteAll(ids);
+        await db.parameterModels.deleteAll(ids);
       });
 
       return true;
@@ -91,7 +90,7 @@ class CustomerAddressRepository extends DatabaseManager
     try {
       var db = await isarDb;
       await db.writeTxn(() async {
-        await db.customerAddress.delete(id);
+        await db.parameterModels.delete(id);
       });
 
       return true;
@@ -102,10 +101,10 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<List<CustomerAddress?>> getAll() async {
+  Future<List<ParameterModel?>> getAll() async {
     try {
       var db = await isarDb;
-      return db.customerAddress.where().findAll();
+      return db.parameterModels.where().findAll();
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
       return [];
@@ -113,10 +112,10 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<CustomerAddress?> getById(int id) async {
+  Future<ParameterModel?> getById(int id) async {
     try {
       var db = await isarDb;
-      return await db.customerAddress.get(id);
+      return await db.parameterModels.get(id);
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
       return null;
@@ -127,7 +126,7 @@ class CustomerAddressRepository extends DatabaseManager
   Future<int> count() async {
     try {
       var db = await isarDb;
-      return await db.customerAddress.count();
+      return await db.parameterModels.count();
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
       return 0;
@@ -135,10 +134,10 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<CustomerAddress?> first() async {
+  Future<ParameterModel?> first() async {
     try {
       var db = await isarDb;
-      return await db.customerAddress.where().findFirst();
+      return await db.parameterModels.where().findFirst();
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
       return null;
@@ -146,54 +145,31 @@ class CustomerAddressRepository extends DatabaseManager
   }
 
   @override
-  Future<void> save(CustomerAddress model) async {
-    try {
-      var db = await isarDb;
-      await db.writeTxn(() async {
-        await model.customer.save();
-      });
-    } catch (e) {
-      ExceptionManager.ExceptionLog(e);
-    }
-  }
+  Future<void> save(ParameterModel model) async {}
 
   //custom
 
-  Future<List<CustomerAddress?>> getCutomerById(String customerId) async {
+  Future<ParameterModel?> getCode(String code) async {
     try {
       var db = await isarDb;
-      return db.customerAddress
-          .filter()
-          .customer((q) => q.idEqualTo(customerId))
-          .findAll();
+      return await db.parameterModels.filter().codeEqualTo(code).findFirst();
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
-      return [];
+      return null;
     }
   }
 
-  Future<List<CustomerAddress?>> getCutomerByIsarId(int customerId) async {
+  void defaultValueSave({bool upt = false}) async {
     try {
-      var db = await isarDb;
-      return db.customerAddress
-          .filter()
-          .customer((q) => q.isarIdEqualTo(customerId))
-          .findAll();
-    } catch (e) {
-      ExceptionManager.ExceptionLog(e);
-      return [];
-    }
-  }
-
-  Future<CustomerAddress?> getDefaultAddress(String customerId) async {
-    try {
-      var db = await isarDb;
-      return await db.customerAddress
-          .filter()
-          .customer((q) => q.idEqualTo(customerId))
-          .and()
-          .isDefaultEqualTo(true)
-          .findFirst();
+      ParameterModel.defaultValues.forEach((element) async {
+        var item = await getCode(element.code);
+        if (item == null) {
+          await add(element);
+        } else if (upt) {
+          element.isarId = item!.isarId;
+          await update(element);
+        }
+      });
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
       return null;

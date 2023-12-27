@@ -1,9 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:isar/isar.dart';
-import 'package:pppos/managers/database_manager.dart';
-import 'package:pppos/managers/exception_manager.dart';
-import 'package:pppos/models/customer.dart';
+import 'package:pppos/core/managers/database_manager.dart';
+import 'package:pppos/core/managers/exception_manager.dart';
 import 'package:pppos/repositories/_base_repository.dart';
+import 'package:pppos/services/entities/customer.dart';
 
 class CustomerRepository extends DatabaseManager
     implements IBaseRepository<Customer> {

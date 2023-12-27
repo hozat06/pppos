@@ -1,7 +1,8 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pppos/models/customer.dart';
-import 'package:pppos/models/customer_address.dart';
+import 'package:pppos/models/parameter_model.dart';
+import 'package:pppos/services/entities/customer.dart';
+import 'package:pppos/services/entities/customer_address.dart';
 
 class DatabaseManager {
   late Future<Isar> isarDb;
@@ -15,6 +16,7 @@ class DatabaseManager {
       final dir = await getApplicationDocumentsDirectory();
       return await Isar.open(
         [
+          ParameterModelSchema,
           CustomerSchema,
           CustomerAddressSchema,
         ],
@@ -27,9 +29,3 @@ class DatabaseManager {
     return Future.value(Isar.getInstance("ppposdb"));
   }
 }
-
-
-/*
-  isar collection olarak işaretlenen class için generate class yaratır.
-  dart run build_runner build
-*/

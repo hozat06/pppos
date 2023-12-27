@@ -1,0 +1,5 @@
+isar collection olarak işaretlenen class için generate class yaratır.
+ -> dart run build_runner build
+
+Dil desteği için dosyaları yaratır
+ -> flutter pub run easy_localization:generate --source-dir ./assets/languages -f keys -o ../core/managers/languages.g.dart
