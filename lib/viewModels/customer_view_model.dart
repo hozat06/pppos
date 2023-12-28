@@ -1,7 +1,7 @@
+import 'package:pppos/models/entities/customer.dart';
+import 'package:pppos/models/entities/customer_address.dart';
 import 'package:pppos/repositories/customer_address_repository.dart';
 import 'package:pppos/repositories/customer_repository.dart';
-import 'package:pppos/services/entities/customer.dart';
-import 'package:pppos/services/entities/customer_address.dart';
 
 class CustomerViewModel {
   final customerRepository = CustomerRepository();

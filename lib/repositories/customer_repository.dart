@@ -1,8 +1,8 @@
 import 'package:isar/isar.dart';
 import 'package:pppos/core/managers/database_manager.dart';
 import 'package:pppos/core/managers/exception_manager.dart';
+import 'package:pppos/models/entities/customer.dart';
 import 'package:pppos/repositories/_base_repository.dart';
-import 'package:pppos/services/entities/customer.dart';
 
 class CustomerRepository extends DatabaseManager
     implements IBaseRepository<Customer> {

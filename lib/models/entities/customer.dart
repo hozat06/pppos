@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:isar/isar.dart';
-import 'package:pppos/services/entities/customer_address.dart';
+import 'package:pppos/models/entities/customer_address.dart';
 
 part 'customer.g.dart';
 

@@ -1,5 +1,5 @@
 import 'package:isar/isar.dart';
-import 'package:pppos/services/entities/customer.dart';
+import 'package:pppos/models/entities/customer.dart';
 
 part 'customer_address.g.dart';
 

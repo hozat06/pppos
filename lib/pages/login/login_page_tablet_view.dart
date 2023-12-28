@@ -5,6 +5,7 @@ import 'package:pppos/core/managers/language_manager.dart';
 import 'package:pppos/core/managers/languages.g.dart';
 import 'package:pppos/core/utilitys/theme.dart';
 import 'package:pppos/custom_widgets/customer_text_field.dart';
+import 'package:pppos/viewModels/login_view_model.dart';
 
 class LoginPageTabletView extends StatefulWidget {
   const LoginPageTabletView({super.key});
@@ -14,6 +15,8 @@ class LoginPageTabletView extends StatefulWidget {
 }
 
 class _LoginPageTabletViewState extends State<LoginPageTabletView> {
+  final viewModel = LoginViewModel();
+
   void changeLanguage(Locale lang) {
     context.setLocale(lang);
   }
@@ -84,6 +87,7 @@ class _LoginPageTabletViewState extends State<LoginPageTabletView> {
         ),
         CustomTextField(
           label: LocaleKeys.loginPage_emailText.lang,
+          controller: viewModel.userCodeController,
           labelColor: AppTheme.textTextColor,
           icon: Icon(Icons.email_rounded, color: AppTheme.primary),
           borderColor: AppTheme.primary,
@@ -98,6 +102,7 @@ class _LoginPageTabletViewState extends State<LoginPageTabletView> {
         ),
         CustomTextField(
           label: LocaleKeys.loginPage_passwordText.lang,
+          controller: viewModel.passwordCodeController,
           password: true,
           labelColor: AppTheme.textTextColor,
           icon: Icon(
@@ -123,7 +128,9 @@ class _LoginPageTabletViewState extends State<LoginPageTabletView> {
                   textStyle: AppTheme.font,
                   fixedSize: const Size.fromHeight(45),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await viewModel.login();
+                },
                 child: Text(LocaleKeys.loginPage_loginButton.lang),
               ),
             ),

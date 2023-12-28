@@ -1,9 +1,9 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pppos/models/apps_models/parameter_model.dart';
-import 'package:pppos/services/entities/customer.dart';
-import 'package:pppos/services/entities/customer_address.dart';
-import 'package:pppos/services/entities/user.dart';
+import 'package:pppos/models/entities/customer.dart';
+import 'package:pppos/models/entities/customer_address.dart';
+import 'package:pppos/models/entities/user.dart';
 
 class DatabaseManager {
   late Future<Isar> isarDb;
