@@ -1,0 +1,1 @@
+flutter pub run rename_app:main all="Propratik POS"

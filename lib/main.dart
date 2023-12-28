@@ -1,24 +1,33 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pppos/core/managers/language_manager.dart';
-import 'package:pppos/models/parameter_model.dart';
+import 'package:pppos/models/apps_models/parameter_model.dart';
 import 'package:pppos/pages/homes/home_page.dart';
 import 'package:pppos/pages/login/login_page.dart';
 import 'package:pppos/repositories/parameter_repository.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   //dil desteğini aktif et
-  WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
+  //cihaz dilini çek
+  var defaultLocale = Platform.localeName;
 
   //default paremetre değerlerini dbye kaydet
   ParameterRepository().defaultValueSave(upt: true);
 
+  //splash
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   runApp(EasyLocalization(
     supportedLocales: LanguageManager.instance.supportedLocales,
     path: LanguageManager.LANG_ASSET_PATH,
+    startLocale: Locale(defaultLocale),
     child: const PPPosApp(),
   ));
 }
@@ -46,8 +55,13 @@ class _PPPosAppState extends State<PPPosApp> {
                 }
             }
         });
-
+    initialization();
     super.initState();
+  }
+
+  void initialization() async {
+    await Future.delayed(const Duration(seconds: 1));
+    FlutterNativeSplash.remove();
   }
 
   @override
@@ -61,6 +75,7 @@ class _PPPosAppState extends State<PPPosApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: false,
       ),
+      debugShowCheckedModeBanner: true,
       home: isLogin ? const HomePage() : const LoginPage(),
     );
   }

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pppos/core/extensions/string_localize_extension.dart';
 import 'package:pppos/core/managers/language_manager.dart';
 import 'package:pppos/core/managers/languages.g.dart';
-import 'package:pppos/custom_widgets/customer_text_field.dart';
 import 'package:pppos/core/utilitys/theme.dart';
+import 'package:pppos/custom_widgets/customer_text_field.dart';
 
 class LoginPageTabletView extends StatefulWidget {
   const LoginPageTabletView({super.key});
@@ -14,6 +14,10 @@ class LoginPageTabletView extends StatefulWidget {
 }
 
 class _LoginPageTabletViewState extends State<LoginPageTabletView> {
+  void changeLanguage(Locale lang) {
+    context.setLocale(lang);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Localizations.override(
@@ -32,21 +36,21 @@ class _LoginPageTabletViewState extends State<LoginPageTabletView> {
                 width: 350.0,
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        bottomLeft: Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.zero),
                     color: Colors.grey.shade200),
-                child: Column(
-                  children: [
-                    //page title
-                    _title(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      //page title
+                      _title(),
 
-                    //divider
-                    AppTheme.divider,
+                      //divider
+                      AppTheme.divider,
 
-                    //form
-                    _form(context),
-                  ],
+                      //form
+                      _form(context),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -59,21 +63,21 @@ class _LoginPageTabletViewState extends State<LoginPageTabletView> {
   Column _form(BuildContext context) {
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            LocaleKeys.loginPage_title.lang,
-            style: AppTheme.title.copyWith(color: AppTheme.secondary),
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
         CircleAvatar(
           backgroundColor: AppTheme.backColor,
           backgroundImage:
               const AssetImage('assets/images/logos/company_logo.png'),
           radius: 50,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            LocaleKeys.loginPage_title.lang,
+            style: AppTheme.title.copyWith(color: AppTheme.secondary),
+          ),
         ),
         const SizedBox(
           height: 16,
@@ -110,38 +114,54 @@ class _LoginPageTabletViewState extends State<LoginPageTabletView> {
         const SizedBox(
           height: 16,
         ),
-        ElevatedButton(
-          onPressed: () {
-            context.setLocale(
-                context.locale != LanguageManager.instance.enLocale
-                    ? LanguageManager.instance.enLocale
-                    : LanguageManager.instance.trLocale);
-            print(context.locale);
-          },
-          child: Text(LocaleKeys.loginPage_loginButton.lang),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.primary,
+                  textStyle: AppTheme.font,
+                  fixedSize: const Size.fromHeight(45),
+                ),
+                onPressed: () {},
+                child: Text(LocaleKeys.loginPage_loginButton.lang),
+              ),
+            ),
+            IconButton(
+              onPressed: () =>
+                  changeLanguage(LanguageManager.instance.trLocale),
+              icon: const Image(
+                image: AssetImage("assets/languages/icons/tr-TR.png"),
+              ),
+            ),
+            IconButton(
+              onPressed: () =>
+                  changeLanguage(LanguageManager.instance.enLocale),
+              icon: const Image(
+                image: AssetImage("assets/languages/icons/en-US.png"),
+              ),
+            ),
+          ],
         )
       ],
     );
   }
 
-  Align _title() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Row(
-        children: [
-          const Image(
-            image: AssetImage("assets/images/logos/logo.png"),
-            height: 50,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            "Propratik Restaurant, POS",
-            style: AppTheme.title,
-          ),
-        ],
-      ),
+  Row _title() {
+    return Row(
+      children: [
+        const Image(
+          image: AssetImage("assets/images/logos/logo.png"),
+          height: 50,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          "Propratik Restaurant, POS",
+          style: AppTheme.title,
+        ),
+      ],
     );
   }
 }

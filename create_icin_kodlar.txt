@@ -3,3 +3,10 @@ isar collection olarak işaretlenen class için generate class yaratır.
 
 Dil desteği için dosyaları yaratır
  -> flutter pub run easy_localization:generate --source-dir ./assets/languages -f keys -o ../core/managers/languages.g.dart
+
+script sh çalıştırma
+ -> scripts\language.sh
+
+flutter icon oluşturma
+ -> flutter pub get
+ -> flutter pub run flutter_launcher_icons

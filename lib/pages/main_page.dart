@@ -1,12 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pppos/pages/categories/category_page.dart';
-import 'package:pppos/pages/customers/customer_page.dart';
-import 'package:pppos/pages/customers/list/customer_phone_list_view.dart';
-import 'package:pppos/pages/customers/list/customer_tablet_list.view.dart';
-import 'package:pppos/pages/homes/home_page.dart';
-import 'package:pppos/pages/orders/order_page.dart';
-import 'package:pppos/pages/products/product_page.dart';
-import 'package:pppos/pages/settings/settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});

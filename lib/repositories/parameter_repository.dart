@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:pppos/core/managers/database_manager.dart';
 import 'package:pppos/core/managers/exception_manager.dart';
-import 'package:pppos/models/parameter_model.dart';
+import 'package:pppos/models/apps_models/parameter_model.dart';
 import 'package:pppos/repositories/_base_repository.dart';
 
 class ParameterRepository extends DatabaseManager

@@ -10,6 +10,8 @@ class AppTheme {
   static Color textTextColor = Colors.black;
   static Color textPlaceholderColor = Colors.grey.shade500;
 
+  static TextStyle font = GoogleFonts.openSans(color: textTextColor);
+
   static TextStyle title = GoogleFonts.openSans(
     fontSize: 18,
     fontWeight: FontWeight.bold,
