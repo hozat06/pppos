@@ -3,6 +3,10 @@
         "title": "Login to the application",
         "emailText": "User code or email address",
         "passwordText": "Password",
-        "loginButton": "Login"
+        "loginButton": "Login",
+        "message": {
+            "validationError": "Email/code and password areas cannot be empty!",
+            "successLogin": "User login is successful."
+        }
     }
 }

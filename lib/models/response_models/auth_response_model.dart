@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:pppos/models/entities/user.dart';
 
 class AuthResponseModel {
   User? user;
   String? token;
-  DateTime? expriedDate;
+  String? expriedDate;
 
   AuthResponseModel({this.user, this.token, this.expriedDate});
 

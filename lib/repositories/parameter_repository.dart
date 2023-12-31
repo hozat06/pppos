@@ -148,6 +148,21 @@ class ParameterRepository extends DatabaseManager
   Future<void> save(ParameterModel model) async {}
 
   //custom
+  Future<bool> updateWithByCode(String code, String value) async {
+    try {
+      var db = await isarDb;
+      var parameter =
+          await db.parameterModels.filter().codeEqualTo(code).findFirst();
+      if (parameter != null) {
+        parameter.value = value;
+        return await update(parameter);
+      }
+      return false;
+    } catch (e) {
+      ExceptionManager.ExceptionLog(e);
+      return false;
+    }
+  }
 
   Future<ParameterModel?> getCode(String code) async {
     try {

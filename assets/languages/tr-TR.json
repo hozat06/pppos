@@ -3,6 +3,10 @@
         "title": "Uygulamaya giriş yapın",
         "emailText": "Kullanıcı Kodu veya Email adresi",
         "passwordText": "Şifre",
-        "loginButton": "Giriş Yapın"
+        "loginButton": "Giriş Yapın",
+        "message": {
+            "validationError": "Email/Kod ve Şifre alanları boş olamaz!",
+            "successLogin": "Kullanıcı girişi başarılı."
+        }
     }
 }

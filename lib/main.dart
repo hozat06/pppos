@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pppos/core/managers/language_manager.dart';
+import 'package:pppos/core/utilitys/helper.dart';
 import 'package:pppos/models/apps_models/parameter_model.dart';
 import 'package:pppos/pages/homes/home_page.dart';
 import 'package:pppos/pages/login/login_page.dart';
@@ -28,7 +30,7 @@ void main() async {
     supportedLocales: LanguageManager.instance.supportedLocales,
     path: LanguageManager.LANG_ASSET_PATH,
     startLocale: Locale(defaultLocale),
-    child: const PPPosApp(),
+    child: const ProviderScope(child: PPPosApp()),
   ));
 }
 
@@ -67,6 +69,7 @@ class _PPPosAppState extends State<PPPosApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: Helper.appContext,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -75,8 +78,8 @@ class _PPPosAppState extends State<PPPosApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: false,
       ),
-      debugShowCheckedModeBanner: true,
-      home: isLogin ? const HomePage() : const LoginPage(),
+      debugShowCheckedModeBanner: false,
+      home: SafeArea(child: isLogin ? const HomePage() : const LoginPage()),
     );
   }
 }

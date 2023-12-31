@@ -13,14 +13,14 @@ class BaseResponseModel<T> {
   BaseResponseModel.fromJson(Map<String, dynamic> json) {
     isStatus = json['isStatus'];
     message = json['message'];
-    data = json['data'];
+    //data = json['data'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['isStatus'] = isStatus;
     data['message'] = message;
-    data['data'] = data;
+    //data['data'] = data;
     return data;
   }
 }
