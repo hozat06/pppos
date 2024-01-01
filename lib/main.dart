@@ -79,7 +79,7 @@ class _PPPosAppState extends State<PPPosApp> {
         useMaterial3: false,
       ),
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: isLogin ? const HomePage() : const LoginPage()),
+      home: isLogin ? const HomePage() : const LoginPage(),
     );
   }
 }

@@ -16,8 +16,12 @@ import 'package:pppos/services/auth_service.dart';
 class LoginViewModel extends ChangeNotifier {
   final _parameterReposiyory = ParameterRepository();
   final _authService = AuthService();
-  final userCodeController = TextEditingController();
-  final passwordCodeController = TextEditingController();
+  //final userCodeController = TextEditingController();
+  //final passwordCodeController = TextEditingController();
+  final List<TextEditingController> controllers = [
+    TextEditingController(),
+    TextEditingController()
+  ];
   bool isLoading = false;
 
   final BuildContext _context = Helper.appContext.currentContext!;
@@ -25,16 +29,17 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<void> login() async {
     try {
-      if (userCodeController.text == "" || passwordCodeController.text == "") {
+      if (controllers[0].text == "" || controllers[1].text == "") {
         Helper.showErrorSnackBar(
             LocaleKeys.loginPage_message_validationError.lang);
         return;
       }
 
       isLoading = true;
+      ChangeNotifier();
       var model = AuthRequestModel.codeLogin(
-        int.parse(userCodeController.text),
-        passwordCodeController.text,
+        int.parse(controllers[0].text),
+        controllers[1].text,
       );
       var result = await _authService.login(model);
       if (result.isStatus) {
@@ -48,12 +53,17 @@ class LoginViewModel extends ChangeNotifier {
         Navigator.pop(_context);
         Navigator.push(_context,
             MaterialPageRoute(builder: (context) => const HomePage()));
+
+        controllers[0].text = "";
+        controllers[1].text = "";
       } else {
         Helper.showWarningSnackBar(jsonDecode(result.message)["message"]);
       }
     } catch (e) {
       ExceptionManager.ExceptionLog(e);
     }
+
     isLoading = false;
+    ChangeNotifier();
   }
 }

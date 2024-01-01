@@ -22,30 +22,36 @@ class CustomTextField extends StatefulWidget {
   Color? textColor = const Color(0xFF000000);
   Color? hintColor = Colors.grey;
   double? textSize = 12;
+  ValueChanged<String>? onChanged;
+  VoidCallback? onEditingComplete;
+  GestureTapCallback? onTap;
 
-  CustomTextField({
-    Key? key,
-    this.label,
-    this.labelColor,
-    this.helperText,
-    this.icon,
-    this.keyboardType,
-    this.controller,
-    this.textAlign,
-    this.maxLength,
-    this.enableSuggestions,
-    this.autofocus,
-    this.readOnly,
-    this.password,
-    this.borderRadius,
-    this.borderLineWidth,
-    this.borderColor,
-    this.borderFocusColor,
-    this.backgroundColor,
-    this.textColor,
-    this.hintColor,
-    this.textSize,
-  }) : super(key: key);
+  CustomTextField(
+      {Key? key,
+      this.label,
+      this.labelColor,
+      this.helperText,
+      this.icon,
+      this.keyboardType,
+      this.controller,
+      this.textAlign,
+      this.maxLength,
+      this.enableSuggestions,
+      this.autofocus,
+      this.readOnly,
+      this.password,
+      this.borderRadius,
+      this.borderLineWidth,
+      this.borderColor,
+      this.borderFocusColor,
+      this.backgroundColor,
+      this.textColor,
+      this.hintColor,
+      this.textSize,
+      this.onChanged,
+      this.onEditingComplete,
+      this.onTap})
+      : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -64,6 +70,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: widget.onChanged,
+      onEditingComplete: widget.onEditingComplete,
+      onTap: widget.onTap,
       controller: widget.controller,
       obscureText: widget.password ?? false,
       style: TextStyle(

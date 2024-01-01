@@ -7,6 +7,7 @@ class AppTheme {
   static Color primary = const Color(0xfff05b41);
   static Color secondary = Colors.grey.shade800;
   static Color backColor = Colors.white;
+  static Color backColorSecondary = Colors.grey.shade100;
   static Color textTextColor = Colors.black;
   static Color textPlaceholderColor = Colors.grey.shade500;
 

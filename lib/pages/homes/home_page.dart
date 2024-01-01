@@ -20,14 +20,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (Helper.getDeviceType(constraints) == EDeviceTypes.Phone) {
-          return widget.phoneView;
-        } else {
-          return widget.tabletView;
-        }
-      },
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (Helper.getDeviceType(constraints) == EDeviceTypes.Phone) {
+            return widget.phoneView;
+          } else {
+            return widget.tabletView;
+          }
+        },
+      ),
     );
   }
 }
